@@ -1,5 +1,6 @@
 package com.example.brijeshvishwanat.cafesling;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -49,5 +50,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onEmpIdReceive(View view) {
+    }
+
+    public void onNewUser(View view) {
+        Intent toNewUserIntent = new Intent(this,NewUserDb.class);
+        startActivity(toNewUserIntent);
+    }
+
+    public void onAdminUse(View view) {
     }
 }
