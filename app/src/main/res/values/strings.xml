@@ -19,4 +19,21 @@
     <string name="breakfast">BreakFast</string>
     <string name="title_activity_new_user_db">NewUserDb</string>
 
+    <string name="adminLogin">Login</string>
+    <string name="password">Password:</string>
+    <string name="employeeList">Employee List</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="employee_list">Employee List</string>
+    <string name="set">Set</string>
+    <string name="breakfast_price">Breakfast Price:</string>
+    <string name="lunch_price">Lunch Price:</string>
+    <string name="people">People</string>
+    <string name="money">Money</string>
+    <string name="email">Email</string>
+    <string name="name">Name</string>
+    <string name="id">Id</string>
+
+    <string name="enter_amount_received">Enter Amount Received</string>
+    <string name="generate_receipt">Generate Receipt</string>
+
 </resources>

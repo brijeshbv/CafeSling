@@ -9,9 +9,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.brijeshvishwanat.cafesling.MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:onClick="onAdminUse">
+    android:background="#7dbcfb"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -33,7 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="onAdminUse" />
+        android:onClick="adminLogin" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,8 +42,7 @@
         android:textStyle="bold"
         android:textSize="30sp"
         android:layout_above="@+id/empId"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -64,24 +62,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="onEmpIdReceive" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/new_user"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/empIdGotButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="46dp"
-        android:textStyle="bold"
-        android:textSize="20sp" />
 
-    <Button
+    <TextClock
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="yes"
-        android:id="@+id/button"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:onClick="onNewUser" />
+        android:id="@+id/textClock"
+        android:layout_alignTop="@+id/adminButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        tools:targetApi="jelly_bean_mr1" />
 
 </RelativeLayout>

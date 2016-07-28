@@ -25,7 +25,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editText"
+            android:id="@+id/empName"
             android:layout_weight="1"
             android:hint="@string/empNameEt"
             android:inputType="text" />
@@ -46,7 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/empIdEt"
-            android:inputType="number" />
+            android:inputType="number"
+            android:id="@+id/empNewId"/>
 
     </LinearLayout>
     <LinearLayout
@@ -64,12 +65,14 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/empEmailEt"/>
+            android:hint="@string/empEmailEt"
+            android:id="@+id/empEmail"/>
 
     </LinearLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/ok"/>
+        android:text="@string/ok"
+        android:onClick="goToMain"/>
 </LinearLayout>

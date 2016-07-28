@@ -7,12 +7,11 @@ import java.io.Serializable;
  */
 public class Employee implements Serializable{
     public String name;
-    public int id;
+    public String email;
+    public String id;
     public int monthlyDue;
-    public Employee(String name,int id,int monthlyDue){
-        this.name=name;
-        this.id=id;
-        this.monthlyDue=monthlyDue;
+
+    public Employee(){
 
     }
 
@@ -23,12 +22,17 @@ public class Employee implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-
-    public int getId() {
+public String getEmail(){
+    return email;
+}
+    public void setEmail(String email){
+        this.email= email;
+    }
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

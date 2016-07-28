@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:paddingTop="10dp"
+    android:background="#e672e7e3">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/employee_list"
+        android:id="@+id/empIdFind"
+        android:onClick="createListView"
+
+        android:background="#206fc3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Receipts"
+        android:id="@+id/btReceiptsListView"
+        android:onClick="receiptsListView"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/empIdFind"
+        android:background="#16b3ec" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="10dp"
+        android:layout_marginTop="67dp"
+        android:layout_below="@+id/empIdFind"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:ems="10"
+            android:singleLine="true"
+            android:id="@+id/etSearchByEmployeeID"
+            android:layout_weight="7"
+            android:hint="Enter Employee ID"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:id="@+id/btSearchByEmployeeID"
+            android:layout_weight="3"
+
+            android:onClick="searchEmployee"
+            android:background="#206fc3" />
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAdd"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+
+        android:src="@android:drawable/ic_input_add"
+        android:background="#206fc3"
+        app:backgroundTint="#206fc3"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="42dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginBottom="50dp"
+        android:onClick="addEmployee"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

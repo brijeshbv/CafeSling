@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/id"
+        android:gravity="center"
+        android:padding="5dp"
+        android:id="@+id/idEmpTv"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:textColor="#4d5556" />
+
+    <TextView
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:padding="5dp"
+        android:gravity="center"
+        android:id="@+id/nameEmpTv"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="#4d5556"
+        android:textStyle="bold"
+        android:layout_weight="1"
+       />
+
+
+</TableRow>
