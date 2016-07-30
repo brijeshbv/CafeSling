@@ -70,7 +70,7 @@ public class DbOrder  extends SQLiteOpenHelper {
 
 
         values.put(COLUMN_MEAL, queryValues.get(COLUMN_MEAL));
-        values.put(COLUMN_COST, Integer.valueOf(queryValues.get(COLUMN_COST)));
+      values.put(COLUMN_COST, Integer.valueOf(queryValues.get(COLUMN_COST)));
         values.put(COLUMN_PAID, queryValues.get(COLUMN_PAID));
         values.put(COLUMN_BALANCE, Integer.valueOf(queryValues.get(COLUMN_BALANCE)));
         values.put(COLUMN_STATUS, queryValues.get(COLUMN_STATUS));

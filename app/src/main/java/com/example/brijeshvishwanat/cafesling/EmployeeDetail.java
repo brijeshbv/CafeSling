@@ -1,14 +1,18 @@
 package com.example.brijeshvishwanat.cafesling;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -33,6 +37,10 @@ public class EmployeeDetail extends AppCompatActivity {
     String id;
     String balanceFromTransac;
     private static final String COLUMN_BALANCE = "balance";
+
+    public int cashInHand;
+    SharedPreferences sharedpreferences;
+
 
     DbTool dbAccess= new DbTool(this);
     DbReceipt dbReceipt = new DbReceipt(this);
@@ -73,17 +81,45 @@ public class EmployeeDetail extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
-    }
 
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
+
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
+    }
     public void removeUserFromDb(View view) {
 
-        MyDialogFragment myDialogFragment= new MyDialogFragment();
-        myDialogFragment.setId(id);
-        myDialogFragment.show(getFragmentManager(),"THE DIALOG");
+        AlertDialog.Builder theDialog = new AlertDialog.Builder(this);
+        theDialog.setTitle("Delete user");
+        theDialog.setMessage("Are you Sure?");
+        theDialog.setCancelable(false);
+        theDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                DbTool dbAccess= new DbTool(getApplicationContext());
+                //dbAccess.deleteContact(id);
+                dbAccess.deleteContact(empId);
+                Intent intent = new Intent(getApplicationContext(),AdminPage.class);
+                startActivity(intent);
+                finish();
 
+            }
+        });
+        theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Intent intent = new Intent(getActivity(),AdminPage.class);
+                // startActivity(intent);
 
+            }
+        });
+
+        AlertDialog dialog1 = theDialog.create();
+        dialog1.show();
 
     }
+
 
     public void editUserInfo(View view) {
 
@@ -113,6 +149,7 @@ public class EmployeeDetail extends AppCompatActivity {
       dbAccess.updateContact(queryValuesMap);
         Intent intent = new Intent(this,AdminPage.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -142,6 +179,13 @@ public class EmployeeDetail extends AppCompatActivity {
                 queryValuesMap.put("balance",balanceFromTransac);
 
                 dbReceipt.newReceipt(queryValuesMap);
+
+                //for cash in hand
+
+              //  sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+             //   cashInHand = cashInHandSharedPref + etAmountPaidSt;
+
 if (Integer.valueOf(etAmountPaidSt)> Integer.valueOf(balanceFromTransac))
 {
     int overPaidAmount = Integer.valueOf(etAmountPaidSt)-Integer.valueOf(balanceFromTransac);
@@ -150,13 +194,15 @@ if (Integer.valueOf(etAmountPaidSt)> Integer.valueOf(balanceFromTransac))
     overpayUpdate(overPaidAmount);
     Intent intent = new Intent(getApplication(), AdminPage.class);
     startActivity(intent);
-
+finish();
 
 }else {
     updateBalanceOrder(etAmountPaidSt);
     Intent intent = new Intent(getApplication(), AdminPage.class);
     startActivity(intent);
+    finish();
 }
+                updateCashInHand(etAmountPaidSt);
 
 
 
@@ -179,6 +225,28 @@ if (Integer.valueOf(etAmountPaidSt)> Integer.valueOf(balanceFromTransac))
 
     }
 
+
+
+    private void updateCashInHand(String etAmountPaidSt) {
+
+        String PasswordDatabase = "passwordDataBase";
+        String cashInHand = "cashinhand";
+        SharedPreferences sharedPreferences = getSharedPreferences(PasswordDatabase, Context.MODE_PRIVATE);
+        String cashInHandVar = sharedPreferences.getString(cashInHand,"null");
+
+        if(cashInHandVar.equals("null"))
+        {
+            Toast.makeText(getBaseContext(), "Error: No cashInHand Variable exits", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            int newCashInHand = Integer.valueOf(cashInHandVar) + Integer.valueOf(etAmountPaidSt);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(cashInHand,String.valueOf(newCashInHand));
+            editor.commit();
+        }
+    }
     //GRG
 
     //update balance in order table
@@ -254,5 +322,7 @@ if (Integer.valueOf(etAmountPaidSt)> Integer.valueOf(balanceFromTransac))
         balanceFromTransac = allTransactionsBalance.get(COLUMN_BALANCE);
         empBalanceTv.append(balanceFromTransac);
     }
+
+
 
 }

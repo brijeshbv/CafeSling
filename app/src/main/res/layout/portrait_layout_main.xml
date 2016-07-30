@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:background="#7dbcfb"
+
     >
 
     <TextView
@@ -22,7 +22,8 @@
         android:layout_marginTop="71dp"
         android:textIsSelectable="false"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:elevation="5dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -41,6 +42,7 @@
         android:id="@+id/textView2"
         android:textStyle="bold"
         android:textSize="30sp"
+        android:elevation="5dp"
         android:layout_above="@+id/empId"
         android:layout_centerHorizontal="true" />
 

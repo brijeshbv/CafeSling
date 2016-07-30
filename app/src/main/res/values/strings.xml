@@ -36,4 +36,10 @@
     <string name="enter_amount_received">Enter Amount Received</string>
     <string name="generate_receipt">Generate Receipt</string>
 
+    <string-array name="balance_sort">
+        <item>Overall</item>
+        <item>Till Previous Month</item>
+
+    </string-array>
+
 </resources>

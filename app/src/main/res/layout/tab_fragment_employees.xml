@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:gravity="center|top"
     android:paddingTop="10dp"
-    android:background="#e672e7e3">
+   >
 
     <Button
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:id="@+id/empIdFind"
         android:onClick="createListView"
 
-        android:background="#206fc3" />
+        android:background="@color/colorPrimary" />
 
     <Button
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:onClick="receiptsListView"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/empIdFind"
-        android:background="#16b3ec" />
+        android:background="@color/colorPrimary" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -57,7 +57,7 @@
             android:layout_weight="3"
 
             android:onClick="searchEmployee"
-            android:background="#206fc3" />
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
 

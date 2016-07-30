@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 public String dateToday;
@@ -37,7 +38,7 @@ public String dateToday;
 
     public String PasswordDatabase = "passwordDataBase";
     public String adminPassword = "adminPassword";
-
+    public String cashInHand = "cashinhand";
     //GRG
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +61,9 @@ dateToday=getDateToday();
             fragmentTransaction.replace(android.R.id.content,portraitMain);
         }
         fragmentTransaction.commit();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         DbPrice dbPrice = new DbPrice(this);
 
 
@@ -75,7 +77,12 @@ dateToday=getDateToday();
             editor.putString(adminPassword, "sling");
             editor.commit();
         }
-
+        String var2 = sharedPreferences.getString(cashInHand, "null");
+        if(var2.equals("null")) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(cashInHand, "0");
+            editor.commit();
+        }
         //GRG
     }
 
@@ -103,11 +110,24 @@ dateToday=getDateToday();
     }
 
     public void onEmpIdReceive(View view) {
-        EditText empIdEt = (EditText)findViewById(R.id.empId);
+
+        DbTool dbTool = new DbTool(this);
+
+        EditText empIdEt = (EditText) findViewById(R.id.empId);
         String empId = empIdEt.getText().toString();
-        Intent intentChoice= new Intent(this,EmployeeChoice.class);
-        intentChoice.putExtra(EXTRA_MESSAGE,empId);
-        startActivity(intentChoice);
+
+        HashMap<String, String> empExists = dbTool.searchEmpDetails(empId);
+        if (empExists.size() != 0) {
+
+            Intent intentChoice = new Intent(this, EmployeeChoice.class);
+            intentChoice.putExtra(EXTRA_MESSAGE, empId);
+            startActivity(intentChoice);
+        }else if (empExists.size() == 0)
+        {
+            Snackbar.make((View)findViewById(R.id.portCoordinatorLayout)," Wrong user ID", Snackbar.LENGTH_SHORT).show();
+          // Toast.makeText(getBaseContext(), "User does not exist", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
 

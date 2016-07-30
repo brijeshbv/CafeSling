@@ -1,8 +1,11 @@
 package com.example.brijeshvishwanat.cafesling;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
@@ -80,7 +83,11 @@ empNameTv = (TextView) findViewById(R.id.nameTv);
         empIdTv.setText(empId);
         empBalanceTv.append(" "+balanceFromTransac);
 
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
 
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
 
 
@@ -88,55 +95,113 @@ empNameTv = (TextView) findViewById(R.id.nameTv);
 
     public void addToLunch(View view) {
 
+//dialog code
+
+        AlertDialog.Builder theDialog = new AlertDialog.Builder(this);
+        theDialog.setTitle("Choose Lunch");
+        theDialog.setMessage("Are you Sure?");
+        theDialog.setCancelable(false);
+        theDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                empChoiceLunch = new HashMap<String, String>();
+                empIdMakingChoiceTvLunch= (TextView)findViewById(R.id.idTv);
+                empIdMakingChoiceLunch = empIdMakingChoiceTvLunch.getText().toString();
+
+
+                HashMap<String,String> priceMap= priceDb.getPrice("'Lunch'");
+                String priceLunch = priceMap.get("price");
+                empChoiceLunch.put(COLUMN_ID,empIdMakingChoiceLunch);
+                empChoiceLunch.put(COLUMN_UNIQUE,String.valueOf(System.currentTimeMillis()));
+                empChoiceLunch.put(COLUMN_MEAL,"lunch");
+                empChoiceLunch.put(COLUMN_COST,priceLunch);
+                empChoiceLunch.put(COLUMN_PAID,"no");
+                empChoiceLunch.put(COLUMN_BALANCE,priceLunch);
+                empChoiceLunch.put(COLUMN_STATUS,"pending");
+                orderDb.insertOrder(empChoiceLunch);
 
 
 
-        empChoiceLunch = new HashMap<String, String>();
-     empIdMakingChoiceTvLunch= (TextView)findViewById(R.id.idTv);
-       empIdMakingChoiceLunch = empIdMakingChoiceTvLunch.getText().toString();
-
-
-   HashMap<String,String> priceMap= priceDb.getPrice("'lunch'");
-        String priceLunch = priceMap.get("price");
-        empChoiceLunch.put(COLUMN_ID,empIdMakingChoiceLunch);
-        empChoiceLunch.put(COLUMN_UNIQUE,String.valueOf(System.currentTimeMillis()));
-        empChoiceLunch.put(COLUMN_MEAL,"lunch");
-        empChoiceLunch.put(COLUMN_COST,priceLunch);
-        empChoiceLunch.put(COLUMN_PAID,"no");
-        empChoiceLunch.put(COLUMN_BALANCE,priceLunch);
-        empChoiceLunch.put(COLUMN_STATUS,"pending");
-        orderDb.insertOrder(empChoiceLunch);
 
 
 
 
 
 
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
+                finish();
+
+            }
+        });
+        theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Intent intent = new Intent(getActivity(),AdminPage.class);
+                // startActivity(intent);
+
+            }
+        });
+
+        AlertDialog dialog1 = theDialog.create();
+        dialog1.show();
+
+        //dialog code
 
 
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
     }
 
     public void addToBreakfast(View view) {
 
-      empChoiceBreak = new HashMap<String, String>();
-        empIdMakingChoiceTvBreak= (TextView)findViewById(R.id.idTv);
-  empIdMakingChoiceBreak = empIdMakingChoiceTvBreak.getText().toString();
 
 
-        HashMap<String,String> priceMap= priceDb.getPrice("'break'");
-        String priceBreakfast = priceMap.get("price");
-        empChoiceBreak.put(COLUMN_ID,empIdMakingChoiceBreak);
-        empChoiceBreak.put(COLUMN_UNIQUE,String.valueOf(System.currentTimeMillis()));
-        empChoiceBreak.put(COLUMN_MEAL,"breakfast");
-        empChoiceBreak.put(COLUMN_COST,priceBreakfast);
-        empChoiceBreak.put(COLUMN_PAID,"no");
-        empChoiceBreak.put(COLUMN_BALANCE,priceBreakfast);
-        empChoiceBreak.put(COLUMN_STATUS,"pending");
-        orderDb.insertOrder(empChoiceBreak);
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        //dialog code
+
+        AlertDialog.Builder theDialog = new AlertDialog.Builder(this);
+        theDialog.setTitle("Choose Breakfast");
+        theDialog.setMessage("Are you Sure?");
+        theDialog.setCancelable(false);
+        theDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+
+                empChoiceBreak = new HashMap<String, String>();
+                empIdMakingChoiceTvBreak= (TextView)findViewById(R.id.idTv);
+                empIdMakingChoiceBreak = empIdMakingChoiceTvBreak.getText().toString();
+
+
+                HashMap<String,String> priceMap= priceDb.getPrice("'Breakfast'");
+                String priceBreakfast = priceMap.get("price");
+                empChoiceBreak.put(COLUMN_ID,empIdMakingChoiceBreak);
+                empChoiceBreak.put(COLUMN_UNIQUE,String.valueOf(System.currentTimeMillis()));
+                empChoiceBreak.put(COLUMN_MEAL,"breakfast");
+                empChoiceBreak.put(COLUMN_COST,priceBreakfast);
+                empChoiceBreak.put(COLUMN_PAID,"no");
+                empChoiceBreak.put(COLUMN_BALANCE,priceBreakfast);
+                empChoiceBreak.put(COLUMN_STATUS,"pending");
+                orderDb.insertOrder(empChoiceBreak);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+        theDialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // Intent intent = new Intent(getActivity(),AdminPage.class);
+                // startActivity(intent);
+
+            }
+        });
+
+        AlertDialog dialog1 = theDialog.create();
+        dialog1.show();
+
+        //dialog code
+
     }
 }

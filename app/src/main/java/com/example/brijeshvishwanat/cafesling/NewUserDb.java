@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,21 +38,12 @@ public class NewUserDb extends AppCompatActivity {
 
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void goToMain(View view) {
+
+
         String nameEmp = nameEmpEt.getText().toString();
         String id = idEt.getText().toString();
         String emailId = emailIdEt.getText().toString();
@@ -63,17 +55,24 @@ public class NewUserDb extends AppCompatActivity {
         ListView listView= (ListView) findViewById(R.id.EmpListView);
         listView.setAdapter(adapter);
 */
+if ( nameEmp.length() != 0 && id.length() != 0 && emailId.length() != 0){
 
 
-       HashMap<String,String> queryValuesMap = new HashMap<String, String>();
-       queryValuesMap.put("empid",id);
-        queryValuesMap.put("name",nameEmp);
-        queryValuesMap.put("email",emailId);
-        queryValuesMap.put("balance",initialBalance);
-        DbTool toCreateDb = new DbTool(this);
-        toCreateDb.insertEmpData(queryValuesMap);
+    HashMap<String,String> queryValuesMap = new HashMap<String, String>();
+    queryValuesMap.put("empid",id);
+    queryValuesMap.put("name",nameEmp);
+    queryValuesMap.put("email",emailId);
+    queryValuesMap.put("balance",initialBalance);
+    DbTool toCreateDb = new DbTool(this);
+    toCreateDb.insertEmpData(queryValuesMap);
 
-        Intent intent = new Intent(getApplicationContext(), AdminPage.class);
-        startActivity(intent);
+    Intent intent = new Intent(getApplicationContext(), AdminPage.class);
+    startActivity(intent);
+    finish();
+
+}else if ( nameEmp.length() == 0 || id.length() == 0 || emailId.length() == 0){
+    Toast.makeText(this,"One of the fields is empty",Toast.LENGTH_SHORT).show();
+}
+
     }
 }

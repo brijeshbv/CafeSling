@@ -14,7 +14,8 @@
         android:textStyle="bold"
         android:layout_weight="1"
         android:textAlignment="center"
-        android:textColor="#4d5556" />
+        android:textColor="#4d5556"
+        android:elevation="5dp"/>
 
     <TextView
         android:layout_width="50dp"
@@ -28,6 +29,7 @@
         android:textColor="#4d5556"
         android:textStyle="bold"
         android:layout_weight="1"
+        android:elevation="5dp"
        />
 
 

@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:text="@string/empNameTv"
             android:id="@+id/textView4"
-            android:paddingRight="60dp"/>
+            android:paddingRight="60dp"
+            android:elevation="5dp"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -41,7 +42,8 @@
             android:layout_height="wrap_content"
             android:text="@string/empIdTv"
             android:id="@+id/textView5"
-            android:paddingRight="20dp"/>
+            android:paddingRight="20dp"
+            android:elevation="5dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,12 +63,14 @@
             android:layout_height="wrap_content"
             android:text="@string/empEmailTv"
             android:id="@+id/textView6"
-            android:paddingRight="64dp"/>
+            android:paddingRight="64dp"
+            android:elevation="5dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/empEmailEt"
-            android:id="@+id/empEmail"/>
+            android:id="@+id/empEmail"
+            android:autoLink="email" />
 
     </LinearLayout>
     <Button

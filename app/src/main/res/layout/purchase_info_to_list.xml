@@ -8,42 +8,32 @@
         android:layout_height="match_parent"
         android:text="SL No"
         android:textSize="15dp"
+        android:id="@+id/plvSlNo"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:id="@+id/rlvSlNo"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Receipt No"
-        android:layout_marginTop="10dp"
-        android:textSize="15dp"
-        android:layout_weight="1"
-        android:id="@+id/rlvReceiptNo"
         android:elevation="5dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Employee ID"
+        android:text="Voucher No"
         android:layout_marginTop="10dp"
         android:textSize="15dp"
+        android:id="@+id/plvVoucherNo"
         android:layout_weight="1"
         android:elevation="5dp"
-        android:id="@+id/rlvEmployeeID"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Date/Time"
+        android:text="DateTime"
         android:layout_marginTop="10dp"
         android:textSize="15dp"
-        android:elevation="5dp"
+        android:id="@+id/plvDateNTime"
         android:layout_weight="1"
-        android:id="@+id/rlvDateTime"
+        android:elevation="5dp"
         />
 
     <TextView
@@ -52,19 +42,30 @@
         android:text="Amount Paid"
         android:layout_marginTop="10dp"
         android:textSize="15dp"
+        android:id="@+id/plvAmountPaid"
         android:layout_weight="1"
-        android:id="@+id/rlvAmountPaid"
         android:elevation="5dp"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="Balance"
+        android:text="Cash in Hand"
         android:layout_marginTop="10dp"
         android:textSize="15dp"
+        android:id="@+id/plvCashInHand"
         android:layout_weight="1"
-        android:id="@+id/rlvBalance"
+        android:elevation="5dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Remark"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:id="@+id/plvRemark"
+        android:layout_weight="1"
         android:elevation="5dp"
         />
 

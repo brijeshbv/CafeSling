@@ -13,7 +13,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,11 +29,20 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.brijeshvishwanat.cafesling.MainActivity" />
         </activity>
-        <activity android:name=".AdminPage"></activity>
-        <activity android:name=".ListViewDisplay"></activity>
-        <activity android:name=".EmployeeChoice"></activity>
-        <activity android:name=".EmployeeDetail"></activity>
-        <activity android:name=".ReceiptsListView"></activity>
+        <activity android:name=".AdminPage"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ListViewDisplay"
+            android:parentActivityName=".AdminPage"></activity>
+        <activity android:name=".EmployeeChoice"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".EmployeeDetail"
+            android:parentActivityName=".AdminPage"></activity>
+        <activity android:name=".ReceiptsListView"
+            android:parentActivityName=".AdminPage"></activity>
+        <activity android:name=".Purchase"
+            android:parentActivityName=".AdminPage"/>
+        <activity android:name=".PurchaseListView"
+            android:parentActivityName=".AdminPage"></activity>
 
     </application>
 

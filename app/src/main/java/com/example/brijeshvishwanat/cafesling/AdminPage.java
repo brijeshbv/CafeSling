@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,8 +39,11 @@ public class AdminPage extends AppCompatActivity {
     int lunchPriceInt;
     public static String EXTRA_MESSAGE= "EXTRA_MESSAGE";
 EditText  searchIdEt;
-
+    TextView cashInHandDisp;
     DbPrice dbPrice = new DbPrice(this);
+    public String cashInHandVar;
+    String PasswordDatabase = "passwordDataBase";
+    String cashInHand = "cashinhand";
 
 
     @Override
@@ -51,9 +57,12 @@ EditText  searchIdEt;
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Set Price"));
+        tabLayout.addTab(tabLayout.newTab().setText("Dashboard"));
+
+        tabLayout.addTab(tabLayout.newTab().setText("Menu"));
         tabLayout.addTab(tabLayout.newTab().setText("Manage"));
-        tabLayout.addTab(tabLayout.newTab().setText("Stats"));
+
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -64,7 +73,12 @@ EditText  searchIdEt;
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                // cashinhand
                 viewPager.setCurrentItem(tab.getPosition());
+
+
+
             }
 
             @Override
@@ -78,11 +92,15 @@ EditText  searchIdEt;
             }
         });
 
+        // Get a support ActionBar corresponding to this toolbar
+        ActionBar ab = getSupportActionBar();
 
+        // Enable the Up button
+        ab.setDisplayHomeAsUpEnabled(true);
 
     }
 
-    public void generateListOfMeals(View view) {
+    public void generateListOfMeals(final View view) {
 
 setContentView(R.layout.listview_prices);
 
@@ -96,7 +114,7 @@ setContentView(R.layout.listview_prices);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(final AdapterView<?> adapterView, View view, final int position, long l) {
+            public void onItemClick(final AdapterView<?> adapterView,final View view, final int position, long l) {
 
                 LayoutInflater inflater = getLayoutInflater();
                 View priceEdit = inflater.inflate(R.layout.setprice, null);
@@ -124,14 +142,11 @@ setContentView(R.layout.listview_prices);
                     public void onClick(DialogInterface dialogInterface, int i) {
 
 
+                   String mealFromList=     ((TextView) view.findViewById(R.id.mealType)).getText().toString();
 
-                        String mealAtPosition = String.valueOf(adapterView.getItemAtPosition(position));
-                    int length = mealAtPosition.length();
-                        String priceFromList = mealAtPosition.substring(length-3,length-1);
-                        String c= mealAtPosition.substring(10,15);
                         HashMap<String,String> mealUpHash = new HashMap<String, String>();
                         final String priceSet = priceSetEt.getText().toString();
-                        mealUpHash.put("mealtype",c);
+                        mealUpHash.put("mealtype",mealFromList);
                         mealUpHash.put("price",priceSet);
                         mealList.updatePrice(mealUpHash);
                         Intent intent = new Intent(getApplicationContext(), AdminPage.class);
@@ -163,10 +178,24 @@ setContentView(R.layout.listview_prices);
     }
 
     public void searchEmployee(View view) {
+
+
+        DbTool dbTool = new DbTool(this);
         searchIdEt = (EditText)findViewById(R.id.etSearchByEmployeeID);
-        Intent searchIntent = new Intent(this,EmployeeDetail.class);
-        searchIntent.putExtra(EXTRA_MESSAGE,searchIdEt.getText().toString());
-        startActivity(searchIntent);
+
+        HashMap<String, String> empExists = dbTool.searchEmpDetails(searchIdEt.getText().toString());
+        if (empExists.size() != 0) {
+            Intent searchIntent = new Intent(this,EmployeeDetail.class);
+            searchIntent.putExtra(EXTRA_MESSAGE,searchIdEt.getText().toString());
+            startActivity(searchIntent);
+
+
+        }else if (empExists.size() == 0)
+        {
+            Toast.makeText(getBaseContext(), "User does not exist", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 
     public void addEmployee(View view) {
@@ -302,6 +331,18 @@ setContentView(R.layout.listview_prices);
     public void receiptsListView(View view) {
         Intent receiptsListViewIntent = new Intent(getApplication(),ReceiptsListView.class);
         startActivity(receiptsListViewIntent);
+    }
+
+    public void purchaseListView(View view) {
+        Intent purchaseListViewIntent = new Intent(getApplication(),PurchaseListView.class);
+        startActivity(purchaseListViewIntent);
+        // finish();
+    }
+
+    public void makePayment(View view) {
+        Intent purchaseIntent = new Intent(getApplication(),Purchase.class);
+        startActivity(purchaseIntent);
+
     }
 
 

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#845df8">
+      >
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,8 @@
                 android:gravity="center"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:elevation="5dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -38,7 +39,9 @@
                 android:textSize="20dp"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:elevation="5dp"
+                />
 
         </TableRow>
 
@@ -49,7 +52,7 @@
             android:layout_below="@+id/tableRow"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="#fc940b"/>
+           />
 
     </LinearLayout>
 

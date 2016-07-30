@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,12 +40,11 @@ public class ListViewDisplay extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-String empArray =String.valueOf(adapterView.getItemAtPosition(position));
-                int length = empArray.length();
-                id = empArray.substring(length-4,length-1);
+               String idFromList =((TextView) view.findViewById(R.id.idEmpTv)).getText().toString();
                 Intent sendDetail = new Intent(ListViewDisplay.this,EmployeeDetail.class);
-                sendDetail.putExtra(EXTRA_MESSAGE,id);
+                sendDetail.putExtra(EXTRA_MESSAGE,idFromList);
                 startActivity(sendDetail);
+                finish();
             }
 ;
         });

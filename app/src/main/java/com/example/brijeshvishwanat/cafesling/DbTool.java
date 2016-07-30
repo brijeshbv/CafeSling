@@ -54,6 +54,17 @@ public class DbTool extends SQLiteOpenHelper {
     private static final String Paid_Amount = "amountpaid";
     private static final String BALANCE = "balance";
 
+    ///purchase variables
+    private static final String TABLE_NAME4 = "purchasetable";
+    private static final String Voucher_NO = "voucherno";
+    private static final String Cash_in_Hand = "cashinhand";
+    private static final String Remark = "remark";
+
+    private static final String TABLE_CREATE4 = "CREATE TABLE "+TABLE_NAME4+" ("+Serial_NO
+            +" integer primary key, "+Voucher_NO+" text, "+SQL_DateTime+" DATETIME DEFAULT CURRENT_TIMESTAMP, "
+            +Paid_Amount+" integer, "+Cash_in_Hand+" integer, "+Remark+" text )";
+
+    //GRG
 
     private static final String TABLE_CREATE = "CREATE TABLE slingemployee (no integer primary key, " +
             "empid text, name text, email text, balance text)";
@@ -78,6 +89,7 @@ public class DbTool extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(TABLE_CREATE1);
         sqLiteDatabase.execSQL(TABLE_CREATE2);
         sqLiteDatabase.execSQL(TABLE_CREATE3);
+        sqLiteDatabase.execSQL(TABLE_CREATE4);
         this.db = sqLiteDatabase;
 
     }
@@ -88,10 +100,12 @@ public class DbTool extends SQLiteOpenHelper {
         String querym = "DROP TABLE IF EXISTS " + TABLE_NAME1;
         String queryo = "DROP TABLE IF EXISTS " + TABLE_NAME2;
         String queryp = "DROP TABLE IF EXISTS " + TABLE_NAME3;
+        String queryr = "DROP TABLE IF EXISTS " + TABLE_NAME4;
         sqLiteDatabase.execSQL(query);
         sqLiteDatabase.execSQL(querym);
         sqLiteDatabase.execSQL(queryo);
         sqLiteDatabase.execSQL(queryp);
+        sqLiteDatabase.execSQL(queryr);
         onCreate(sqLiteDatabase);
 
     }
