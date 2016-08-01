@@ -67,8 +67,8 @@
         android:layout_width="wrap_content"
 
         android:src="@android:drawable/ic_input_add"
-        android:background="#206fc3"
-        app:backgroundTint="#206fc3"
+        android:background="@color/colorPrimaryDark"
+        app:backgroundTint="@color/colorPrimaryDark"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="42dp"
         android:layout_marginEnd="42dp"

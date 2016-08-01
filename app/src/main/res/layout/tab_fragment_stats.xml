@@ -6,6 +6,15 @@
     android:gravity="center">
 
 
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Cash in hand :"-->
+        <!--android:id="@+id/cashInHandAdmin"-->
+
+
+        <!--android:textSize="40dp"-->
+        <!--android:textColor="@color/abc_input_method_navigation_guard" />-->
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +33,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="44dp"
             android:onClick="makePayment"
-            android:backgroundTint="#4072dc" />
+            android:backgroundTint="@color/colorPrimary"
+            android:background="@color/colorPrimary" />
 
     </TableRow>
 
@@ -45,19 +55,21 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tableRow2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:id="@+id/tableRow4">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Purchases List"
-            android:id="@+id/listViewPurchase"
-            android:layout_alignBottom="@+id/tableRow3"
-            android:layout_centerHorizontal="true"
-            android:onClick="purchaseListView"
-            android:backgroundTint="#4072dc"/>
     </TableRow>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Purchases List"
+        android:id="@+id/listViewPurchase"
+        android:onClick="purchaseListView"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_marginTop="72dp"
+        android:layout_below="@+id/tableRow4"
+        android:layout_alignParentStart="true" />
 
 
 

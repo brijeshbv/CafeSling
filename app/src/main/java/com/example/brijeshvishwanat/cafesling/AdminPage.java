@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -99,6 +101,10 @@ EditText  searchIdEt;
         ab.setDisplayHomeAsUpEnabled(true);
 
     }
+
+
+
+
 
     public void generateListOfMeals(final View view) {
 
@@ -306,7 +312,7 @@ setContentView(R.layout.listview_prices);
                         //String p = etNewAdminPassword.getText().toString();
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(adminPassword,etNewAdminPassword.getText().toString());
-                        editor.commit();
+                        editor.apply();
                         Toast.makeText(getBaseContext(), "New password Set", Toast.LENGTH_SHORT).show();
 
                         //Intent intent = new Intent(getApplicationContext(), AdminPage.class);
@@ -344,6 +350,7 @@ setContentView(R.layout.listview_prices);
         startActivity(purchaseIntent);
 
     }
+
 
 
     //GRG

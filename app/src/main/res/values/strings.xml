@@ -33,12 +33,12 @@
     <string name="name">Name</string>
     <string name="id">Id</string>
 
-    <string name="enter_amount_received">Enter Amount Received</string>
+    <string name="enter_amount_received">Enter Amount </string>
     <string name="generate_receipt">Generate Receipt</string>
 
     <string-array name="balance_sort">
         <item>Overall</item>
-        <item>Till Previous Month</item>
+        <item>Till Month End</item>
 
     </string-array>
 

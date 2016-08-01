@@ -9,11 +9,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 
@@ -36,19 +42,45 @@ public class EmployeeDetail extends AppCompatActivity {
     EditText editId;
     String id;
     String balanceFromTransac;
+    String prevMonthDate;
     private static final String COLUMN_BALANCE = "balance";
-
+    Spinner dateSortBalance;
     public int cashInHand;
     SharedPreferences sharedpreferences;
-
+    HashMap<String,String> balanceTillDate;
 
     DbTool dbAccess= new DbTool(this);
     DbReceipt dbReceipt = new DbReceipt(this);
     DbOrder dbOrder = new DbOrder(this);
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.employee_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.edit_user) {
+            editUserInfo();
+            return true;
+        }
+        if (id == R.id.delete_user) {
+            removeUserFromDb();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Intent intent= getIntent();
         String id =intent.getStringExtra(ListViewDisplay.EXTRA_MESSAGE);
+
 
 
 
@@ -68,16 +100,67 @@ public class EmployeeDetail extends AppCompatActivity {
         empNameTv.append(name);
         empEmailTv.append(email);
         empIdTv.append(empId);
+
         //empBalanceTv.append(balance);
 
+        //spinnerdatesort
+
+
+
+        balanceTillDate= new HashMap<String, String>();
+
+        dateSortBalance = (Spinner)findViewById(R.id.spinner);
+        dateSortBalance.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String strDate = sdf.format(c.getTime());
+int currMonth =Integer.valueOf( strDate.substring(5,7));
+                if (currMonth != 1) {
+                    int prevMonth = currMonth - 1;
+                    prevMonthDate = strDate.substring(0,4)+"-"+String.valueOf(String.format("%02d",prevMonth));
+                } else if (currMonth== 1)
+                {
+                    int currYear =Integer.valueOf( strDate.substring(0,4));
+                    int prevMonth = 12;
+                    int preYear = currYear-1;
+                   prevMonthDate = String.valueOf(preYear)+"-"+String.valueOf(prevMonth);
+                }
+                if (dateSortBalance.getSelectedItem().equals("Till Month End")){
+
+                  balanceTillDate=  dbOrder.getBalanceForDate(empId,prevMonthDate);
+         String balanceTillDatestr= balanceTillDate.get(COLUMN_BALANCE);
+
+
+                    empBalanceTv.setText("Balance : "+balanceTillDatestr);
+                } else if (dateSortBalance.getSelectedItem().equals("Overall") ){
+                    HashMap<String,String> allTransactionsBalance ;
+                    allTransactionsBalance = dbOrder.getBalance(empId);
+
+                    balanceFromTransac = allTransactionsBalance.get(COLUMN_BALANCE);
+                    empBalanceTv.setText("Balance : "+balanceFromTransac);
+                }
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                HashMap<String,String> allTransactionsBalance ;
+                allTransactionsBalance = dbOrder.getBalance(empId);
+
+                balanceFromTransac = allTransactionsBalance.get(COLUMN_BALANCE);
+                empBalanceTv.append(balanceFromTransac);
+
+            }
+        });
+
+
+        //spinnerdatesort
         //from order table
 
 
-        HashMap<String,String> allTransactionsBalance ;
-        allTransactionsBalance = dbOrder.getBalance(empId);
 
-        balanceFromTransac = allTransactionsBalance.get(COLUMN_BALANCE);
-        empBalanceTv.append(balanceFromTransac);
 
 
         super.onCreate(savedInstanceState);
@@ -88,7 +171,7 @@ public class EmployeeDetail extends AppCompatActivity {
         // Enable the Up button
         ab.setDisplayHomeAsUpEnabled(true);
     }
-    public void removeUserFromDb(View view) {
+    public void removeUserFromDb() {
 
         AlertDialog.Builder theDialog = new AlertDialog.Builder(this);
         theDialog.setTitle("Delete user");
@@ -121,7 +204,7 @@ public class EmployeeDetail extends AppCompatActivity {
     }
 
 
-    public void editUserInfo(View view) {
+    public void editUserInfo() {
 
         setContentView(R.layout.edit_user_admin);
          editName = (EditText)findViewById(R.id.empNameEditEt);
@@ -244,7 +327,7 @@ finish();
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putString(cashInHand,String.valueOf(newCashInHand));
-            editor.commit();
+            editor.apply();
         }
     }
     //GRG
@@ -322,6 +405,7 @@ finish();
         balanceFromTransac = allTransactionsBalance.get(COLUMN_BALANCE);
         empBalanceTv.append(balanceFromTransac);
     }
+
 
 
 

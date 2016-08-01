@@ -108,6 +108,7 @@ transactionArrayMap.add(employeeMap);
 
 
         }
+        cursor1.close();
         db.close();
         return transactionArrayMap;
     }
@@ -140,7 +141,7 @@ transactionArrayMap.add(employeeMap);
 
     public  void balanceUpdate(String amountPaid, String empId){
         int balanceFromTop = 0;
-        String statusvar ="paid";
+
 
 
 
@@ -196,6 +197,39 @@ transactionArrayMap.add(employeeMap);
         db.close();
 
 
+    }
+
+
+    public HashMap<String,String> getBalanceForDate( String ID, String date) {
+
+        HashMap<String,String> employeeMap = new HashMap<String, String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String balanceReturned="";
+        String query = "SELECT SUM("+COLUMN_BALANCE+") ,"+ COLUMN_ID+"  FROM "+TABLE_NAME
+                +" WHERE "+COLUMN_ID+" is "+ID+" AND strftime('%Y-%m',"+ COLUMN_SQLDT+") "
+                +"BETWEEN \""+ "( SELECT "+"strftime('%Y-%m',"+ COLUMN_SQLDT+") "+" FROM "+TABLE_NAME
+                +" WHERE "+COLUMN_ID +" is "+ ID
+                + " AND "+COLUMN_NO+" IS (SELECT MIN("+COLUMN_NO+") FROM "
+                +TABLE_NAME+" WHERE "+COLUMN_ID+" is '"+ID+"))"+ "\" AND \"" +date+"\""
+                +" GROUP BY "+COLUMN_ID;
+
+        Cursor cursor1a = db.rawQuery(query, null);
+
+        if (cursor1a.moveToFirst()) {
+            do {
+
+                employeeMap.put(COLUMN_BALANCE,cursor1a.getString(0));
+                employeeMap.put(COLUMN_ID,cursor1a.getString(1));
+
+
+
+            } while (cursor1a.moveToNext());
+
+
+        }
+        cursor1a.close();
+        db.close();
+        return employeeMap;
     }
 
 

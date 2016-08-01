@@ -33,7 +33,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:onClick="adminLogin" />
+        android:onClick="adminLogin"
+        android:background="@color/colorPrimary" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -62,7 +63,9 @@
         android:id="@+id/empIdGotButton"
         android:layout_below="@+id/empId"
         android:layout_centerHorizontal="true"
-        android:onClick="onEmpIdReceive" />
+        android:onClick="onEmpIdReceive"
+        android:background="@color/colorPrimary"
+        android:typeface="sans" />
 
 
     <TextClock

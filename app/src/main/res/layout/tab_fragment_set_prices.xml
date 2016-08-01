@@ -31,5 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="89dp"
-        android:onClick="generateListOfMeals"/>
+        android:onClick="generateListOfMeals"
+        android:background="@color/colorAccent"
+        android:width="250dp" />
 </RelativeLayout>
