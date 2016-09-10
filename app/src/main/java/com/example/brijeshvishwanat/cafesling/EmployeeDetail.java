@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +39,7 @@ public class EmployeeDetail extends AppCompatActivity {
     public TextView empEmailTv;
     public TextView empIdTv;
     public TextView empBalanceTv;
+    String balanceTillDatestr;
     EditText editName;
     EditText editEmail;
     EditText editId;
@@ -52,6 +55,8 @@ public class EmployeeDetail extends AppCompatActivity {
     DbTool dbAccess= new DbTool(this);
     DbReceipt dbReceipt = new DbReceipt(this);
     DbOrder dbOrder = new DbOrder(this);
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -73,6 +78,11 @@ public class EmployeeDetail extends AppCompatActivity {
             removeUserFromDb();
             return true;
         }
+        if (id == R.id.email_user) {
+            sendEmail();
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -130,7 +140,7 @@ int currMonth =Integer.valueOf( strDate.substring(5,7));
                 if (dateSortBalance.getSelectedItem().equals("Till Month End")){
 
                   balanceTillDate=  dbOrder.getBalanceForDate(empId,prevMonthDate);
-         String balanceTillDatestr= balanceTillDate.get(COLUMN_BALANCE);
+                    balanceTillDatestr = balanceTillDate.get(COLUMN_BALANCE);
 
 
                     empBalanceTv.setText("Balance : "+balanceTillDatestr);
@@ -406,6 +416,32 @@ finish();
         empBalanceTv.append(balanceFromTransac);
     }
 
+    //email experimentation
+    protected void sendEmail() {
+        Log.i("Send email", "");
+        String[] TO = {email};
+        String[] CC = {""};
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        String emailContent = "Name :  " + name + "\n"
+                + "Employee ID :" + empId + "\n"
+                + " Total Balance : " + balanceTillDatestr + "\n";
+
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
+        emailIntent.putExtra(Intent.EXTRA_CC, CC);
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Cafeteria Balance");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, emailContent);
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            finish();
+            Log.i("Finished sending email.", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(EmployeeDetail.this, "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 

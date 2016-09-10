@@ -141,7 +141,7 @@ transactionArrayMap.add(employeeMap);
 
     public  void balanceUpdate(String amountPaid, String empId){
         int balanceFromTop = 0;
-
+        String statusvar = "paid";
 
 
 
@@ -202,32 +202,47 @@ transactionArrayMap.add(employeeMap);
 
     public HashMap<String,String> getBalanceForDate( String ID, String date) {
 
+
         HashMap<String,String> employeeMap = new HashMap<String, String>();
         SQLiteDatabase db = this.getReadableDatabase();
-        String balanceReturned="";
-        String query = "SELECT SUM("+COLUMN_BALANCE+") ,"+ COLUMN_ID+"  FROM "+TABLE_NAME
-                +" WHERE "+COLUMN_ID+" is "+ID+" AND strftime('%Y-%m',"+ COLUMN_SQLDT+") "
-                +"BETWEEN \""+ "( SELECT "+"strftime('%Y-%m',"+ COLUMN_SQLDT+") "+" FROM "+TABLE_NAME
-                +" WHERE "+COLUMN_ID +" is "+ ID
-                + " AND "+COLUMN_NO+" IS (SELECT MIN("+COLUMN_NO+") FROM "
-                +TABLE_NAME+" WHERE "+COLUMN_ID+" is '"+ID+"))"+ "\" AND \"" +date+"\""
-                +" GROUP BY "+COLUMN_ID;
-
-        Cursor cursor1a = db.rawQuery(query, null);
-
-        if (cursor1a.moveToFirst()) {
+        String minDate = "";
+        String queryForDate = " SELECT " + "strftime('%Y-%m'," + COLUMN_SQLDT + ") " + " FROM " + TABLE_NAME
+                + " WHERE " + COLUMN_ID + " is " + ID
+                + " AND " + COLUMN_NO + " IS (SELECT MIN(" + COLUMN_NO + ") FROM "
+                + TABLE_NAME + " WHERE " + COLUMN_ID + " is '" + ID + "')";
+        Cursor cursorDate = db.rawQuery(queryForDate, null);
+        if (cursorDate.moveToFirst()) {
             do {
 
-                employeeMap.put(COLUMN_BALANCE,cursor1a.getString(0));
-                employeeMap.put(COLUMN_ID,cursor1a.getString(1));
+                minDate = cursorDate.getString(0);
 
 
-
-            } while (cursor1a.moveToNext());
+            } while (cursorDate.moveToNext());
 
 
         }
-        cursor1a.close();
+        cursorDate.close();
+
+        String balanceReturned="";
+        String query = "SELECT SUM("+COLUMN_BALANCE+") ,"+ COLUMN_ID+"  FROM "+TABLE_NAME
+                +" WHERE "+COLUMN_ID+" is "+ID+" AND strftime('%Y-%m',"+ COLUMN_SQLDT+") "
+                + "BETWEEN \"" + minDate + "\" AND \"" + date + "\""
+                +" GROUP BY "+COLUMN_ID;
+
+        Cursor cursor1ab = db.rawQuery(query, null);
+
+        if (cursor1ab.moveToFirst()) {
+            do {
+
+                employeeMap.put(COLUMN_BALANCE, cursor1ab.getString(0));
+                employeeMap.put(COLUMN_ID, cursor1ab.getString(1));
+
+
+            } while (cursor1ab.moveToNext());
+
+
+        }
+        cursor1ab.close();
         db.close();
         return employeeMap;
     }

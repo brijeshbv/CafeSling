@@ -36,7 +36,16 @@
         <activity android:name=".EmployeeChoice"
             android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".EmployeeDetail"
-            android:parentActivityName=".AdminPage"></activity>
+            android:parentActivityName=".AdminPage">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
         <activity android:name=".ReceiptsListView"
             android:parentActivityName=".AdminPage"></activity>
         <activity android:name=".Purchase"

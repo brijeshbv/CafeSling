@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,9 +61,9 @@ EditText  searchIdEt;
 
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Dashboard"));
-
         tabLayout.addTab(tabLayout.newTab().setText("Menu"));
+
+        tabLayout.addTab(tabLayout.newTab().setText("Dashboard"));
         tabLayout.addTab(tabLayout.newTab().setText("Manage"));
 
 
@@ -75,6 +77,24 @@ EditText  searchIdEt;
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
+                //GRG -- Set Cash In hand
+                TextView tvCashInHand = (TextView) findViewById(R.id.cashInHandAdmin);
+                //TextView purchaseCashInHand = (TextView)findViewById(R.id.purchaseCashInHand);
+
+                if (tvCashInHand != null) {
+                    SharedPreferences sharedPreferences = getSharedPreferences(PasswordDatabase, Context.MODE_PRIVATE);
+                    cashInHandVar = sharedPreferences.getString(cashInHand, "null");
+
+                    if (cashInHandVar.equals("null")) {
+                        Toast.makeText(getBaseContext(), "Error: No cashInHand Variable exits", Toast.LENGTH_SHORT).show();
+                    } else {
+                        tvCashInHand.setText("Cash in hand : " + cashInHandVar);
+                        //tvCashInHand.append(cashInHandVar);
+                    }
+                }
+
+
 
                 // cashinhand
                 viewPager.setCurrentItem(tab.getPosition());
@@ -105,69 +125,6 @@ EditText  searchIdEt;
 
 
 
-
-    public void generateListOfMeals(final View view) {
-
-setContentView(R.layout.listview_prices);
-
-        final DbPrice mealList = new DbPrice(this);
-        ArrayList<HashMap<String,String>> mealListHash= mealList.getAllMeals();
-
-
-        ListAdapter adapter = new SimpleAdapter(this,mealListHash,R.layout.menu_into_list,
-                new String[]{"mealtype","price"}, new int[]{R.id.mealType,R.id.mealPrice});
-        ListView listView= (ListView) findViewById(R.id.mealListView);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> adapterView,final View view, final int position, long l) {
-
-                LayoutInflater inflater = getLayoutInflater();
-                View priceEdit = inflater.inflate(R.layout.setprice, null);
-
-
-               final EditText priceSetEt = (EditText) priceEdit.findViewById(R.id.editedPrice);
-
-
-                final AlertDialog.Builder alert = new AlertDialog.Builder(AdminPage.this);
-                alert.setTitle("Edit Price");
-                alert.setView(priceEdit);
-
-                //To Disable back button and outside touch
-                alert.setCancelable(false);
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-
-                });
-
-                alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-
-                   String mealFromList=     ((TextView) view.findViewById(R.id.mealType)).getText().toString();
-
-                        HashMap<String,String> mealUpHash = new HashMap<String, String>();
-                        final String priceSet = priceSetEt.getText().toString();
-                        mealUpHash.put("mealtype",mealFromList);
-                        mealUpHash.put("price",priceSet);
-                        mealList.updatePrice(mealUpHash);
-                        Intent intent = new Intent(getApplicationContext(), AdminPage.class);
-                        startActivity(intent);
-
-                    }
-                });
-
-                AlertDialog dialog = alert.create();
-                dialog.show();
-
-
-            }
-        });
-    }
 
 /*
     public void searchByEmployeeID(View view) {
@@ -354,4 +311,6 @@ setContentView(R.layout.listview_prices);
 
 
     //GRG
+
+
 }

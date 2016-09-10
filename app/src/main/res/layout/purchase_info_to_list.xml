@@ -11,6 +11,7 @@
         android:id="@+id/plvSlNo"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:elevation="5dp"
         />
 
@@ -22,6 +23,7 @@
         android:textSize="15dp"
         android:id="@+id/plvVoucherNo"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:elevation="5dp"
         />
 
@@ -33,6 +35,7 @@
         android:textSize="15dp"
         android:id="@+id/plvDateNTime"
         android:layout_weight="1"
+        android:textAlignment="center"
         android:elevation="5dp"
         />
 
@@ -44,7 +47,9 @@
         android:textSize="15dp"
         android:id="@+id/plvAmountPaid"
         android:layout_weight="1"
+        android:width="30dp"
         android:elevation="5dp"
+        android:textAlignment="center"
         />
 
     <TextView
@@ -56,6 +61,7 @@
         android:id="@+id/plvCashInHand"
         android:layout_weight="1"
         android:elevation="5dp"
+        android:textAlignment="center"
         />
 
     <TextView
@@ -67,6 +73,7 @@
         android:id="@+id/plvRemark"
         android:layout_weight="1"
         android:elevation="5dp"
+        android:textAlignment="center"
         />
 
 

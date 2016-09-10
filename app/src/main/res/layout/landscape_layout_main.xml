@@ -55,11 +55,32 @@
     android:text="@string/login"
     android:id="@+id/empIdGotButton"
     android:onClick="onEmpIdReceive"
-    android:layout_below="@+id/empId"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="67dp"
     android:elevation="5dp"
-    android:background="@color/colorPrimary" />
+    android:background="@color/colorPrimary"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true" />
+
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="43dp"
+        android:orientation="horizontal"
+        android:id="@+id/tableRow3"></TableRow>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/save_food"
+
+        android:scaleType="center"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/empIdGotButton"
+        android:layout_alignEnd="@+id/textView2" />
 
 
 </RelativeLayout>

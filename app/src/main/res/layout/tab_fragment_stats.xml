@@ -6,22 +6,14 @@
     android:gravity="center">
 
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Cash in hand :"-->
-        <!--android:id="@+id/cashInHandAdmin"-->
 
 
-        <!--android:textSize="40dp"-->
-        <!--android:textColor="@color/abc_input_method_navigation_guard" />-->
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/tableRow2">
+        android:id="@+id/tableRow2"
+
+        android:layout_alignParentStart="true">
 
         <Button
             android:layout_width="match_parent"
@@ -39,16 +31,6 @@
     </TableRow>
 
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/tableRow3">
-
-
-    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
@@ -63,13 +45,24 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Purchases List"
+        android:text="Payments List"
         android:id="@+id/listViewPurchase"
         android:onClick="purchaseListView"
         android:backgroundTint="@color/colorPrimary"
         android:layout_marginTop="72dp"
         android:layout_below="@+id/tableRow4"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cash in hand :"
+        android:id="@+id/cashInHandAdmin"
+        android:textSize="40dp"
+        android:layout_above="@+id/tableRow2"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="98dp"
+        android:textColor="@color/abc_input_method_navigation_guard" />
 
 
 
